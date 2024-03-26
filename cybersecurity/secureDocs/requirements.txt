@@ -1,0 +1,5 @@
+cryptography==3.4.7
+PyJWT==2.1.0
+hashlib==20081119
+pymongo==3.11.4
+sqlite3==2.6.0

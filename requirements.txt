@@ -1,0 +1,14 @@
+Flask==2.0.1
+pymongo==3.11.4
+aiomongo==0.0.1
+aiohttp==3.7.4
+aioredis==2.0.0
+cryptography==3.4.7
+PyJWT==2.1.0
+python-dotenv==0.17.1
+WTForms==2.3.3
+Flask-WTF==0.14.3
+aif360==0.4.0
+numpy==1.20.3
+pandas==1.2.4
+scikit-learn==0.24.2
