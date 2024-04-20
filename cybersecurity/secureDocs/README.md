@@ -1,31 +1,114 @@
-# Data Integrity Overview
+# Integrated System Documentation
 
-## Introduction
+## Part 1: Blockchain Management (`sems.py`)
 
-This README highlights our focused efforts on ensuring data integrity within our cybersecurity framework. Data integrity involves protecting data from unauthorized alterations, ensuring the data remains accurate and consistent throughout its lifecycle. Our approach integrates multiple layers of security measures to detect and prevent tampering or corruption of data.
+### Overview
 
-## Integrity Solutions
+This script simulates a simple blockchain system where each block contains data and is cryptographically linked to the previous block, ensuring data integrity and immutability.
 
-### Secure Transmission Protocols
+### Functions
 
-To safeguard data integrity during transmission, we implement TLS/SSL protocols. This ensures that data exchanged between clients and servers is encrypted, protecting it from man-in-the-middle attacks and unauthorized alterations.
+#### `create_block(content, previous_hash="")`
+- **Arguments**:
+  - `content (str)`: Content or data to be included in the block.
+  - `previous_hash (str)`: Hash of the previous block in the chain.
+- **Returns**:
+  - `str`: Hash of the newly created block.
+- **Description**:
+  - This function concatenates the block's content with the previous block's hash, creates a block string, and generates a SHA-256 hash for it.
 
-### Hashing Algorithms
+#### `add_to_blockchain(blockchain, new_data)`
+- **Arguments**:
+  - `blockchain (list)`: Blockchain, represented as a list of block hashes.
+  - `new_data (str)`: Data to be stored in the new block.
+- **Returns**:
+  - `str`: Hash of the newly added block.
+- **Description**:
+  - Retrieves the hash of the last block (if any), creates a new block with the new data and appends it to the blockchain.
 
-We utilize cryptographic hashing algorithms, such as SHA-256, to verify the integrity of data. By generating and comparing hash values before and after data transmission or storage, we can detect and alert on any unauthorized changes to the data.
+### Example Usage
+```python
+blockchain = []
+add_to_blockchain(blockchain, "Energy usage data for 01/01/2024")
+print("Blockchain:", blockchain)
 
-### Digital Signatures
+# Smart Contract Ledger (`sems.sol`)
 
-Digital signatures are employed to provide an additional layer of validation, ensuring that data originates from a trusted source and has not been altered. This technique is crucial for verifying the integrity of software updates, data files, and communications.
+## Overview
 
-### Access Control and Authentication
+This Solidity smart contract, `SmartCityLedger`, is designed to manage environmental data and citizen feedback within a smart city context. The contract aims to utilize blockchain technology for secure and immutable recording of relevant city data and public interactions.
 
-Robust access control measures and strong authentication mechanisms are in place to limit data access to authorized personnel only. By controlling who can access and modify data, we significantly reduce the risk of internal and external threats to data integrity.
+## Contract Structures
 
-### Continuous Monitoring and Alerting
+### EnvironmentalData
 
-Our systems are equipped with continuous monitoring and alerting capabilities to promptly detect potential integrity breaches. This allows our security teams to quickly respond to and investigate any anomalies or unexpected changes in data.
+#### Attributes:
+- **timestamp** (`uint256`): Timestamp of the data entry, indicating when the data was recorded.
+- **dataType** (`string`): Type of environmental data being stored (e.g., temperature, humidity).
+- **dataValue** (`uint256`): The numeric value of the recorded environmental data.
 
-### Conclusion
+### Feedback
 
-Through the strategic application of secure transmission protocols, hashing algorithms, digital signatures, access control, and continuous monitoring, we strive to uphold the highest standards of data integrity. These cybersecurity measures are crucial for maintaining trust in our data and systems, ensuring that our stakeholders can rely on the accuracy and consistency of the information we provide.
+#### Attributes:
+- **citizen** (`address`): Ethereum address of the citizen submitting feedback, ensuring accountability.
+- **message** (`string`): Content of the feedback provided by the citizen, capturing public sentiment or concerns.
+- **timestamp** (`uint256`): Timestamp of when the feedback was submitted, providing a temporal context to the feedback.
+
+## Functions
+
+### `storeEnvironmentalData(dataType, dataValue)`
+- **Description**: Allows any user to store data regarding the environment. This function is critical for collecting real-time, decentralized environmental data which can be used for various urban planning and public health assessments.
+- **Usage**: Any user, such as city sensors or public apps, can call this function to contribute data.
+
+### `submitFeedback(message)`
+- **Description**: Enables citizens to submit feedback directly onto the blockchain, fostering a transparent and responsive civic engagement platform.
+- **Usage**: Citizens can use this function to voice concerns, suggestions, or feedback about city services or events, enhancing community involvement.
+
+## Modifiers
+
+### `onlyCityOfficial`
+- **Description**: Restricts certain administrative functions to the city official's Ethereum address.
+- **Usage**: Applied to functions that should only be executable by city officials, such as modifying critical data or settings within the contract.
+
+---
+
+This `README.md` document thoroughly describes the `SmartCityLedger` contract's purpose, functionalities, and how it integrates within a smart city's ecosystem to leverage blockchain for data integrity and public engagement.
+
+# Document Integrity Verification (`veriHash.py`)
+
+## Overview
+
+This Python script, `veriHash.py`, is designed to manage the integrity of documents through SHA-256 hashing. It provides functionalities for generating hashes from document contents and verifying the integrity of these documents by comparing hashes.
+
+## Functions
+
+### `generate_document_hash(document_contents)`
+
+#### Arguments:
+- **document_contents** (`str`): Content of the document to be hashed.
+
+#### Returns:
+- **str**: SHA-256 hash of the document, providing a unique identifier and ensuring the integrity of the document's content.
+
+### `verify_document_integrity(original_hash, current_contents)`
+
+#### Arguments:
+- **original_hash** (`str`): The SHA-256 hash that was originally generated for the document, used as the benchmark for verification.
+- **current_contents** (`str`): The current contents of the document that need to be verified against the original hash.
+
+#### Returns:
+- **tuple**: A boolean indicating whether the integrity of the document is maintained, along with a message stating the verification result.
+
+## Example Usage
+
+This example demonstrates how to use the functions within `veriHash.py` to ensure the integrity of document contents:
+
+```python
+# Generate the hash for the original document content
+original_hash = generate_document_hash("This is the original document.")
+
+# Verify the integrity of the document by comparing the original hash with the hash of the current contents
+verification_result, message = verify_document_integrity(original_hash, "This is the original document.")
+
+# Print the verification result
+print(message)  # Expected Output: "Document integrity verified."

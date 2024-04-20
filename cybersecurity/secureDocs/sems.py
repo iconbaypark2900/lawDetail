@@ -1,11 +1,11 @@
 # Import the sha256 function from the hashlib library to generate hash values.
 from hashlib import sha256
 
+"""
+Creates a new block in the blockchain.
+"""
 def create_block(content, previous_hash=""):
-    """
-    Creates a new block in the blockchain.
-
-    Args:
+    """Args:
     content (str): The content or data to be included in the block.
     previous_hash (str): The hash of the previous block in the chain. Defaults to an empty string.
 
@@ -18,10 +18,11 @@ def create_block(content, previous_hash=""):
     block_hash = sha256(block_string.encode()).hexdigest()
     return block_hash
 
+"""
+Adds a new block to the blockchain.
+"""
 def add_to_blockchain(blockchain, new_data):
     """
-    Adds a new block to the blockchain.
-
     Args:
     blockchain (list): The blockchain represented as a list of block hashes.
     new_data (str): The data to be stored in the new block.

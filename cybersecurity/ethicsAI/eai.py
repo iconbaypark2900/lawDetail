@@ -1,14 +1,19 @@
 # Install the AI Fairness 360 toolkit to use its bias mitigation algorithms and dataset handling.
 # pip install aif360
-
-from aif360.algorithms.preprocessing import Reweighing  # Import the Reweighing algorithm for bias mitigation.
-from aif360.datasets import StandardDataset  # Import the StandardDataset class for dataset handling.
-import pandas as pd  # Import pandas for data manipulation.
+# Import the Reweighing algorithm for bias mitigation.
+from aif360.algorithms.preprocessing import Reweighing  
+# Import the StandardDataset class for dataset handling.
+from aif360.datasets import StandardDataset  
+# Import pandas for data manipulation.
+import pandas as pd  
 
 # Load your dataset into a pandas DataFrame.
-df = pd.read_csv('legal_case_data.csv')  # Replace 'legal_case_data.csv' with the path to your dataset.
-protected_attribute = 'gender'  # Define the protected attribute, e.g., gender, that you want to consider for bias mitigation.
-label = 'case_outcome'  # Define the label or outcome variable of your dataset. Assuming it's a binary outcome.
+# Replace 'legal_case_data.csv' with the path to your dataset.
+df = pd.read_csv('legal_case_data.csv')  
+# Define the protected attribute, e.g., gender, that you want to consider for bias mitigation.
+protected_attribute = 'gender'
+# Define the label or outcome variable of your dataset. Assuming it's a binary outcome.  
+label = 'case_outcome'  
 
 # Convert the pandas DataFrame into a StandardDataset object, which is compatible with AIF360 algorithms.
 dataset = StandardDataset(df, label_name=label, favorable_classes=[1],
